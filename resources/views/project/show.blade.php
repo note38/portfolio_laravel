@@ -24,8 +24,11 @@
                             <div class="mt-4 text-gray-500 font-bold text-sm">
                                 {{ $project['description'] }}
                             </div>
+                            <img src="{{ asset($project->image) }}" >
                             <div class="mt-4 text-gray-500 flex justify-between font-bold text-sm">
-                                <x-primary-button>update</x-primary-button>
+                                <a href="/edit/{{$project->id}}">update</a>
+            
+
                                 <x-primary-button>delete</x-primary-button>
                             </div>
                           </div>

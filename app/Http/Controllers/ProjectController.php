@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Projects;
-
+use Illuminate\Support\Facades\Storage;
 use Database\Factories\ProjectsFactory;
 use Illuminate\Http\Request;
 
@@ -28,6 +28,19 @@ class ProjectController extends Controller
         $project->image = 'images/'.$imageName;
         $project->save();
 
-        return redirect()->route('post')->with('success', 'Project created successfully.');
+        return redirect()->route('dash_project')->with('success', 'Project created successfully.');
+    }
+    public function edit($id){
+         $project = Projects::find($id);
+         return view('project.edit', ['project' => $project ]);
+    }
+    public function upload_edit(Request $request)
+    {
+        Storage::put('projects', $request->image );
+        
+        dd('ok');
+      
+        // TODO STORE IMAGE AND UPDATE IMAGE
+
     }
 }

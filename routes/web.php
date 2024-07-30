@@ -21,14 +21,19 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/test', [ProjectController::class, 'show'])->middleware(['auth', 'verified'])->name('post');
-Route::post('/create', [ProjectController::class, 'create'])->middleware(['auth', 'verified'])->name('create');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    // Route::view('/about', 'pages.about')->name('about');
+
+
+    Route::get('/dash_project', [ProjectController::class, 'show'])->name('dash_project');
+    Route::post('/create', [ProjectController::class, 'create'])->name('create');
+    // TODO FIXME
+    Route::get('/edit/{id}', [ProjectController::class, 'edit'])->name('edit');
+    Route::patch('/update/{id}', [ProjectController::class, 'upload_edit'])->name('profile.update');
 });
 
 require __DIR__.'/auth.php';

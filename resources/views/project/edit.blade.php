@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Add Project') }}
+            Edit Project: {{$project->title}}
         </h2>
        
     </x-slot>
@@ -10,7 +10,8 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                <form action="/create" method="POST" enctype="multipart/form-data">
+                <form action="/update/{{$project->id}}"
+                 method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="flex flex-col content-betweenn">
                         
@@ -18,15 +19,14 @@
                         <div class="sm:col-span-4">
                             <label for="title" class="block text-sm font-medium leading-6 text-gray-900">Title</label>
                             <div class="mt-2">
-                              <input type="text" name="title" id="title" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                              <input value="{{$project->title}}" type="text" name="title" id="title" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                             </div>
-                           
                         </div>
 
                         <div class="col-span-full">
                             <label for="description" class="block text-sm font-medium leading-6 text-gray-900">Description</label>
                             <div class="mt-2">
-                              <textarea id="description" name="description" rows="3" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"></textarea>
+                              <textarea id="description" name="description" rows="3" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">{{$project->decription}}</textarea>
                             </div>
                             <p class="mt-1 mb-3 text-sm leading-6 text-gray-600">Write a few sentences about your Project..</p>
                           </div>
@@ -39,8 +39,8 @@
                               
                                 <div class="mt-4 flex text-sm leading-6 text-gray-600">
                                   <label for="file-upload" class="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500">
-                                    
-                                    <input type="file" name="image" id="image" >
+                                    <img src="{{ asset($project->image) }}" >
+                                    <input value="{{$project->image}}" type="file" name="image" id="image" >
                                   </label>
                                   
                                 </div>
@@ -48,17 +48,7 @@
                               </div>
                             </div>
                           </div>
-                        @if ($errors->any())
-                          <div class="col-span-full text-center mt-3">
-                            <ul>
-                              @foreach ($errors->all() as $error)
-                              <li class="text-red-500 italic">
-                                {{ $error }}
-                              </li>
-                              @endforeach
-                            </ul>
-                          </div>
-                        @endif
+                       
 
                         <div class="mt-6 flex items-center justify-end gap-x-6">
                             <a href="{{ route('dash_project')}}" class="text-sm block font-semibold leading-6 text-gray-900">Cancel</a>
