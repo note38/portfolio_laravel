@@ -11,8 +11,9 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                 <form action="/update/{{$project->id}}"
-                 method="post" enctype="multipart/form-data">
+                 method="POST" enctype="multipart/form-data">
                         @csrf
+                        @method('PATCH')
                         <div class="flex flex-col content-betweenn">
                         
                        
@@ -26,7 +27,7 @@
                         <div class="col-span-full">
                             <label for="description" class="block text-sm font-medium leading-6 text-gray-900">Description</label>
                             <div class="mt-2">
-                              <textarea id="description" name="description" rows="3" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">{{$project->decription}}</textarea>
+                              <textarea id="description" name="description" rows="3" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">{{$project->description}}</textarea>
                             </div>
                             <p class="mt-1 mb-3 text-sm leading-6 text-gray-600">Write a few sentences about your Project..</p>
                           </div>
