@@ -40,7 +40,10 @@
                               
                                 <div class="mt-4 flex text-sm leading-6 text-gray-600">
                                   <label for="file-upload" class="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500">
-                                    <img src="{{ asset($project->image) }}" >
+                                    <p class="flex justify-center"> 
+                                    <img id="image-preview" src="{{ asset($project->image) }}"
+                                    alt="preview image" style="max-height: 250px;">
+                                    </p>
                                     <input value="{{$project->image}}" type="file" name="image" id="image" >
                                   </label>
                                   
@@ -66,3 +69,26 @@
         </div>
     </div>
 </x-app-layout>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script type="text/javascript">
+     
+    $(document).ready(function (e) {
+
+    
+    $('#image').change(function(){
+            
+        let reader = new FileReader();
+
+        reader.onload = (e) => { 
+
+        $('#image-preview').attr('src', e.target.result); 
+        }
+
+        reader.readAsDataURL(this.files[0]); 
+    
+    });
+    
+    });
+</script>

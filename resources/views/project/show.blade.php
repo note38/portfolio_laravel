@@ -34,14 +34,17 @@
                             </div>
                             <img src="{{ asset($project->image) }}" >
                             <div class="mt-4 text-gray-500 flex justify-between font-bold text-sm">
-                                <a href="/edit/{{$project->id}}">update</a>
-            
-
-                                <x-primary-button>delete</x-primary-button>
+                                <a href="/edit/{{$project->id}}">Update</a>
+                                
+                                <button form="delete_form" type="submit" class="focus:outline-black text-white text-sm mt-4 py-2 px-4 border-b-4 border-red-600 bg-red-500 hover:bg-red-400">Delete</button>
                             </div>
                           </div>
-                          
+                           
                         @endforeach
+                        <form action="/delete/{{ $project->id }}" method="post" id="delete_form">
+                            @csrf
+                          @method('DELETE')
+                          </form>
                      </div>
                      {{ $showProjectData->links() }}
                 </div>
@@ -53,6 +56,14 @@
     </div>
 </x-app-layout>
 <script>
+    function confirmDelete(id) {
+        var confirmation = confirm("Are you sure you want to delete this project?");
+
+        if (confirmation) {
+            // Redirect to the delete route with the project ID
+            window.location.href = "/delete/" + id;
+        }
+    }
     // Fade out the success message after 10 seconds
     setTimeout(function() {
         var statusMessage = document.getElementById('status-message');
@@ -62,4 +73,6 @@
             statusMessage.style.display = 'none';
         }, 2000); // Adjust the fade-out duration here
     }, 4000); // Adjust the display duration here
+
+    
 </script>

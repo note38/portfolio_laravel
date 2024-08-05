@@ -44,6 +44,7 @@ public function update(Request $request, $id)
         $imageName = time().'.'.request()->file('image')->getClientOriginalExtension();
         request()->file('image')->move(public_path('images'), $imageName);
         $project->image = 'images/'.$imageName;
+
     }
 
     $project->save();
@@ -57,6 +58,14 @@ public function update(Request $request, $id)
 public function destroy($id)
     {
     $project = Projects::find($id);
+    if (!$project) {
+        // Handle the case when the project is not found
+        session()->flash('error', 'Project not found!');
+        return redirect()->route('dash_project');
+    }
+    if (file_exists(public_path($project->image))) {
+        unlink(public_path($project->image));
+    }
     $project->delete();
 
     session()->flash('status', 'Project deleted successfully!');
