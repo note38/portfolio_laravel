@@ -1,0 +1,19 @@
+CACHE - autoload page
+PROFILE - about me image 
+
+id
+name
+avatar
+about
+image
+project belongto user
+email
+password
+
+PROJECT 
+
+id 
+user_id
+title
+description
+image
