@@ -41,10 +41,13 @@
                           </div>
                            
                         @endforeach
+                        
+                        @if (isset($project))
                         <form action="/delete/{{ $project->id }}" method="post" id="delete_form">
                             @csrf
-                          @method('DELETE')
-                          </form>
+                            @method('DELETE')
+                        </form>
+                    @endif
                      </div>
                      {{ $showProjectData->links() }}
                 </div>

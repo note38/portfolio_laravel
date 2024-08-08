@@ -19,6 +19,7 @@ class ProjectController extends Controller
     request()->file('image')->move(public_path('images'), $imageName);
 
     $project = new Projects();
+    $project->user_id = auth()->id();
     $project->title = $request->input('title');
     $project->description = $request->input('description');
     $project->image = 'images/'.$imageName;
