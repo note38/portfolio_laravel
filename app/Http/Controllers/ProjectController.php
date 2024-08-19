@@ -16,7 +16,7 @@ class ProjectController extends Controller
     ]);
 
     $imageName = time().'.'.request()->file('image')->getClientOriginalExtension();
-    request()->file('image')->move(public_path('images'), $imageName);
+    request()->file('image')->storeAs('public/images', $imageName);
 
     $project = new Projects();
     $project->user_id = auth()->id();
@@ -42,10 +42,17 @@ public function update(Request $request, $id)
     $project->description = $request->input('description');
 
     if ($request->hasFile('image')) {
-        $imageName = time().'.'.request()->file('image')->getClientOriginalExtension();
-        request()->file('image')->move(public_path('images'), $imageName);
-        $project->image = 'images/'.$imageName;
+        // Delete the old image if it exists
+        if (file_exists(public_path($project->image))) {
+            unlink(public_path($project->image));
+        }
 
+        // Upload the new image to the storage using Laravel's filesystem
+        $imageName = time() . '.' . $request->file('image')->getClientOriginalExtension();
+        $request->file('image')->storeAs('images', $imageName);
+
+        // Update the project's image attribute with the stored path
+        $project->image = 'storage/images/' . $imageName;
     }
 
     $project->save();
@@ -74,21 +81,14 @@ public function destroy($id)
     return redirect()->route('dash_project')->with('success', 'Project deleted successfully.');
     }  
     
-public function show()
-    {      
-    $showProjectData = Projects::latest()->paginate(10);
-
-    return view('project.show', compact('showProjectData'));
-    
-    }
     
     public function edit($id)
     {
          $project = Projects::find($id);
          return view('project.edit', ['project' => $project ]);
     }
-    public function showCreate(){
-        $showProjectData = Projects::latest()->paginate(5);
+    public function show(){
+        $showProjectData = Projects::latest()->paginate(10);
         return view('project.create', compact('showProjectData'));
     }
 }

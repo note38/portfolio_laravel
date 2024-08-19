@@ -29,7 +29,7 @@
                               <textarea id="description"  name="description" rows="3" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">{{ old('description') }}</textarea>
                             </div>
                             <p class="mt-1 mb-3 text-sm leading-6 text-gray-600">Write a few sentences about your Project..</p>
-                          </div>
+                          </div> 
 
 
                         <div class="col-span-full">
@@ -40,7 +40,7 @@
                                 <div class="mt-4 flex text-sm leading-6 text-gray-600">
                                   <label for="file-upload" class="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600  focus-within:ring-offset-2 hover:text-indigo-500">
                                     <p class="flex justify-center"> 
-                                    <img id="image-preview" src="https://cdn.dribbble.com/users/4438388/screenshots/15854247/media/0cd6be830e32f80192d496e50cfa9dbc.jpg?resize=1000x750&vertical=center"
+                                    <img id="image-preview" src='https://cdn.dribbble.com/users/4438388/screenshots/15854247/media/0cd6be830e32f80192d496e50cfa9dbc.jpg?resize=1000x750&vertical=center'
                                     alt="preview image" style="max-height: 250px;">
                                     </p>
                                     <input value="{{ old('image') }}" type="file" name="image" id="image" >
